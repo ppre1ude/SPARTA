@@ -3,30 +3,43 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
         .mytitle {
-            color: red;
-            font-size: 40px;
-        }
-
-        .mybtn {
-            font-size: 12px;
-            color: white;
             background-color: green;
-        }
 
-        .mytxt {
-            color: red;
+            width: 300px;
+
+            border-radius: 10px;
+            color: white;
+
+            text-align: center;
+
+            padding: 30px 0px 0px 0px;
+
+            background-image: url('https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg');
+            background-position: center;
+            background-size: cover;
+        }
+        .wrap {
+            width: 300px;
+            margin: 20px auto 0px auto;
         }
     </style>
 </head>
 
 <body>
-    <h1 class="mytitle">로그인 페이지</h1>
-    <p class="mytxt">ID: <input type="text" /></p>
-    <p class="mytxt">PW: <input type="text" /></p>
-    <button class="mybtn">로그인하기</button>
+    <div class="wrap">
+        <div class="mytitle">
+            <h1>🔑 로그인 페이지</h1>
+            <h5>아이디, 비밀번호를 입력하세요</h5>
+        </div>
+        <p>ID : <input type="text" /></p>
+        <p>PW : <input type="text" /></p>
+        <button>로그인하기</button>
+    </div>
 </body>
 
 </html>
