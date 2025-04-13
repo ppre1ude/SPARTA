@@ -73,7 +73,26 @@
             margin-right: 10px;
         }
     </style>
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBxXE37e6StKz3h81zvlBjKewnUjholC18",
+          authDomain: "sparta-1169a.firebaseapp.com",
+          projectId: "sparta-1169a",
+          storageBucket: "sparta-1169a.firebasestorage.app",
+          messagingSenderId: "376024072666",
+          appId: "1:376024072666:web:1bdd7aa632141c4ac8c0e3"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
         $(document).ready(function () {
             let url = "http://spartacodingclub.shop/sparta_api/seoulair";
             fetch(url).then(res => res.json()).then(data => {
