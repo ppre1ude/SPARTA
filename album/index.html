@@ -88,27 +88,46 @@
           messagingSenderId: "376024072666",
           appId: "1:376024072666:web:1bdd7aa632141c4ac8c0e3"
         };
-      
-        // Initialize Firebase
+
+        // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-
-        $(document).ready(function () {
-            let url = "http://spartacodingclub.shop/sparta_api/seoulair";
-            fetch(url).then(res => res.json()).then(data => {
-                let mise = data['RealtimeCityAir']['row'][0]['IDEX_NM']
-                $('#msg').text(mise)
-            })
-        })
-
-        function openclose() {
-            $('#postingbox').toggle();
-        }
-        function makeCard() {
+        
+        $("#postingbtn").click(async function () {
             let image = $('#image').val();
             let title = $('#title').val();
             let content = $('#content').val();
             let date = $('#date').val();
+
+            let doc = {
+                'image': image,
+                'title': title,
+                'content': content,
+                'date': date
+            };
+            await addDoc(collection(db, "albums"), doc);
+            alert('저장완료!');
+            window.location.reload();
+        })
+
+        $("#savebtn").click(async function () {
+            $('#postingbox').toggle();
+        })
+
+        let url = "http://spartacodingclub.shop/sparta_api/seoulair";
+        fetch(url).then(res => res.json()).then(data => {
+            let mise = data['RealtimeCityAir']['row'][0]['IDEX_NM']
+            $('#msg').text(mise)
+        })
+
+        let docs = await getDocs(collection(db, "albums"));
+        docs.forEach((doc) => {
+            let row = doc.data();
+
+            let image = row['image'];
+            let title = row['title'];
+            let content = row['content'];
+            let date = row['date'];
 
             let temp_html = `
             <div class="col">
@@ -125,7 +144,8 @@
                 </div>
             </div>`;
             $('#card').append(temp_html);
-        }
+        });
+
     </script>
 </head>
 
@@ -133,7 +153,7 @@
     <div class="mytitle">
         <h1>나만의 추억 앨범</h1>
         <p>현재 서울의 미세먼지 : <span id="msg">나쁨</span></p>
-        <button onclick="openclose()">추억 저장하기</button>
+        <button id="savebtn">추억 저장하기</button>
     </div>
     <div class="mypostingbox" id="postingbox">
         <div class="form-floating mb-3">
@@ -153,7 +173,7 @@
             <label for="floatingInput">앨범 날짜</label>
         </div>
         <div class="mybtn">
-            <button onclick="makeCard()" type="button" class="btn btn-dark">기록하기</button>
+            <button id="postingbtn" type="button" class="btn btn-dark">기록하기</button>
             <button type="button" class="btn btn-outline-dark">닫기</button>
         </div>
     </div>
